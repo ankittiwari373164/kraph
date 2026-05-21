@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --deg {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 280 99% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 100% 48%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 280 99% 54%;
+    --radius: 0.625rem;
+    --deg: 0deg;
+  }
+
+  body {
+    @apply bg-void text-white font-inter antialiased;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  ::selection {
+    background: rgba(188, 19, 254, 0.3);
+    color: white;
+  }
+}
+
+@layer components {
+  .neon-card {
+    background: rgb(10, 10, 10);
+    color: #fff;
+    padding: 2px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 20px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .neon-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: conic-gradient(from var(--deg, 0deg), transparent 0%, #bc13fe 10%, transparent 20%);
+    animation: spin-neon 5s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .neon-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    background: rgb(26, 26, 26);
+    border-radius: 18px;
+  }
+
+  .neon-card:hover::before {
+    opacity: 1;
+  }
+
+  .neon-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+  }
+
+  .neon-text {
+    color: #bc13fe;
+    text-shadow: 0 0 20px rgba(188, 19, 254, 0.5), 0 0 40px rgba(188, 19, 254, 0.3);
+  }
+
+  .neon-text-cyan {
+    color: #00f0ff;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.3);
+  }
+
+  .neon-text-blue {
+    color: #0070f3;
+    text-shadow: 0 0 20px rgba(0, 112, 243, 0.5), 0 0 40px rgba(0, 112, 243, 0.3);
+  }
+
+  .magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .magnetic-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20 xl:px-32;
+  }
+
+  .page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .page-transition-exit {
+    opacity: 1;
+  }
+
+  .page-transition-exit-active {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
+
+@layer utilities {
+  .text-gradient-neon {
+    background: linear-gradient(135deg, #bc13fe, #0070f3, #00f0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-void {
+    background: linear-gradient(180deg, #0a0a0a 0%, #0f0f1a 50%, #0a0a0a 100%);
+  }
+}
+
+@keyframes spin-neon {
+  0% { --deg: 0deg; }
+  100% { --deg: 360deg; }
+}
