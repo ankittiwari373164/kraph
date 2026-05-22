@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react'
+import {
+  Calendar,
+  Clock,
+  ArrowRight,
+  Tag,
+} from 'lucide-react'
 
 interface BlogPost {
   title: string
@@ -14,135 +19,220 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
-    title: 'The Future of AI in Digital Marketing: 2025 and Beyond',
-    excerpt: 'Explore how artificial intelligence is reshaping the marketing landscape, from predictive analytics to automated content creation and hyper-personalization at scale.',
+    title: 'How Modern Website Design Helps Businesses Grow',
+    excerpt:
+      'A well-designed website builds trust, improves user experience, and helps businesses attract more customers online.',
+
     image: '/images/blog1.jpg',
-    category: 'AI & Technology',
+
+    category: 'Website Design',
+
     date: 'Jan 15, 2025',
-    readTime: '8 min read',
-    author: 'Sarah Chen',
+
+    readTime: '6 min read',
+
+    author: 'Admin',
+
     featured: true,
   },
+
   {
-    title: '10 Branding Trends That Will Define 2025',
-    excerpt: 'From immersive experiences to purpose-driven design, discover the branding trends that will shape how companies connect with audiences this year.',
+    title: 'Social Media Strategies That Actually Work',
+    excerpt:
+      'Learn how businesses can grow their audience and increase engagement through consistent and creative social media marketing.',
+
     image: '/images/blog2.jpg',
-    category: 'Branding',
-    date: 'Jan 10, 2025',
-    readTime: '6 min read',
-    author: 'Marcus Rivera',
-  },
-  {
-    title: 'Social Media Algorithms: How to Win in 2025',
-    excerpt: 'A deep dive into the latest algorithm changes across major platforms and strategies to maximize organic reach and engagement.',
-    image: '/images/blog3.jpg',
+
     category: 'Social Media',
-    date: 'Jan 5, 2025',
-    readTime: '10 min read',
-    author: 'Emily Watson',
+
+    date: 'Jan 10, 2025',
+
+    readTime: '5 min read',
+
+    author: 'Admin',
   },
+
   {
-    title: 'Building a Performance Marketing Machine',
-    excerpt: 'Learn the frameworks and methodologies that top-performing marketing teams use to drive predictable, scalable revenue growth.',
-    image: '/images/gallery1.jpg',
-    category: 'Performance',
-    date: 'Dec 28, 2024',
-    readTime: '7 min read',
-    author: 'David Kim',
-  },
-  {
-    title: 'The Complete Guide to SEO in the AI Era',
-    excerpt: 'How search engine optimization is evolving with AI-powered search and what marketers need to know to stay ahead of the curve.',
-    image: '/images/service-seo.jpg',
+    title: 'Why Local SEO Matters For Small Businesses',
+    excerpt:
+      'Discover how local SEO and Google Business optimization can help customers find your business faster online.',
+
+    image: '/images/blog3.jpg',
+
     category: 'SEO',
-    date: 'Dec 20, 2024',
-    readTime: '12 min read',
-    author: 'Lisa Park',
+
+    date: 'Jan 5, 2025',
+
+    readTime: '7 min read',
+
+    author: 'Admin',
   },
+
   {
-    title: 'Content Strategy for B2B SaaS Companies',
-    excerpt: 'A comprehensive playbook for creating content that drives qualified leads and establishes thought leadership in competitive markets.',
+    title: 'Tips To Improve Ecommerce Sales',
+    excerpt:
+      'From product pages to paid advertising, explore simple ecommerce marketing strategies that increase conversions.',
+
+    image: '/images/gallery1.jpg',
+
+    category: 'Ecommerce',
+
+    date: 'Dec 28, 2024',
+
+    readTime: '8 min read',
+
+    author: 'Admin',
+  },
+
+  {
+    title: 'Building A Strong Brand Identity Online',
+    excerpt:
+      'Branding is more than just a logo. Learn how visual identity and messaging create long-term customer trust.',
+
+    image: '/images/service-branding.jpg',
+
+    category: 'Branding',
+
+    date: 'Dec 20, 2024',
+
+    readTime: '6 min read',
+
+    author: 'Admin',
+  },
+
+  {
+    title: 'Content Writing Tips For Better Engagement',
+    excerpt:
+      'Good content helps businesses connect with customers, improve SEO, and build a stronger online presence.',
+
     image: '/images/service-content.jpg',
+
     category: 'Content',
+
     date: 'Dec 15, 2024',
-    readTime: '9 min read',
-    author: 'James Mitchell',
+
+    readTime: '5 min read',
+
+    author: 'Admin',
   },
 ]
 
-const categories = ['All', 'AI & Technology', 'Branding', 'Social Media', 'Performance', 'SEO', 'Content']
+const categories = [
+  'All',
+  'Website Design',
+  'Social Media',
+  'SEO',
+  'Ecommerce',
+  'Branding',
+  'Content',
+]
 
 export default function Blog() {
-  const [activeCategory, setActiveCategory] = useState('All')
+  const [activeCategory, setActiveCategory] =
+    useState('All')
 
-  const featured = blogPosts.find((p) => p.featured)
-  const filtered = activeCategory === 'All'
-    ? blogPosts.filter((p) => !p.featured)
-    : blogPosts.filter((p) => p.category === activeCategory && !p.featured)
+  const featured = blogPosts.find(
+    (p) => p.featured
+  )
+
+  const filtered =
+    activeCategory === 'All'
+      ? blogPosts.filter((p) => !p.featured)
+      : blogPosts.filter(
+          (p) =>
+            p.category === activeCategory &&
+            !p.featured
+        )
 
   return (
-    <main>
-      {/* Hero */}
-      <section className="relative w-full min-h-[50vh] flex items-center justify-center overflow-hidden bg-void pt-20">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 rounded-full blur-[200px]" />
-        </div>
+    <main className="bg-[#f8fafc]">
 
-        <div className="relative z-10 text-center section-padding">
-          <p className="font-teko text-neon-purple text-xl uppercase tracking-[0.3em] mb-6">
-            Insights & Updates
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-white pt-28 pb-24">
+
+        {/* Soft Background Shapes */}
+        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-40" />
+
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-40" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+
+          <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
+            Blog & Insights
           </p>
-          <h1 className="font-playfair text-5xl md:text-7xl text-white leading-tight mb-6">
-            The <span className="text-gradient-neon">Blog</span>
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-8">
+            Helpful Articles For
+            <span className="text-blue-600"> Growing Businesses</span>
           </h1>
-          <p className="font-inter text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Stay ahead of the curve with expert insights on digital marketing, 
-            branding, AI, and industry trends.
+
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Explore insights on website design, social media,
+            branding, SEO, ecommerce marketing, and digital growth strategies.
           </p>
         </div>
       </section>
 
       {/* Featured Post */}
       {featured && (
-        <section className="relative bg-void py-12 border-b border-white/5">
-          <div className="section-padding">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center glass-card overflow-hidden">
-              <div className="aspect-[16/9] lg:aspect-auto lg:h-full overflow-hidden">
+        <section className="py-16 bg-white border-t border-gray-200">
+
+          <div className="max-w-7xl mx-auto px-6">
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-[#f8fafc] border border-gray-200 rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+
+              {/* Image */}
+              <div className="aspect-[16/10] overflow-hidden h-full">
+
                 <img
                   src={featured.image}
                   alt={featured.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <div className="p-6 md:p-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-inter text-xs text-neon-purple bg-neon-purple/10 px-3 py-1 rounded-pill border border-neon-purple/20">
+
+              {/* Content */}
+              <div className="p-8 md:p-10">
+
+                <div className="flex items-center gap-3 mb-5 flex-wrap">
+
+                  <span className="text-xs bg-blue-600 text-white px-4 py-2 rounded-full font-medium">
                     Featured
                   </span>
-                  <span className="font-inter text-xs text-white/40 bg-white/5 px-3 py-1 rounded-pill">
+
+                  <span className="text-xs bg-blue-50 text-blue-600 px-4 py-2 rounded-full font-medium">
                     {featured.category}
                   </span>
                 </div>
-                <h2 className="font-playfair text-2xl md:text-3xl text-white mb-4 leading-tight">
+
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-5">
                   {featured.title}
                 </h2>
-                <p className="font-inter text-white/40 text-sm leading-relaxed mb-6">
+
+                <p className="text-gray-600 leading-relaxed mb-8">
                   {featured.excerpt}
                 </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-white/30 text-xs font-inter">
-                    <span className="flex items-center gap-1">
-                      <Calendar size={12} />
+
+                <div className="flex flex-wrap items-center justify-between gap-5">
+
+                  <div className="flex items-center gap-5 text-sm text-gray-500">
+
+                    <span className="flex items-center gap-2">
+                      <Calendar size={16} />
                       {featured.date}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Clock size={12} />
+
+                    <span className="flex items-center gap-2">
+                      <Clock size={16} />
                       {featured.readTime}
                     </span>
                   </div>
-                  <button className="flex items-center gap-2 font-inter text-sm text-neon-purple hover:text-white transition-colors group">
-                    Read More
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+
+                  <button className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-all duration-300">
+
+                    Read Article
+
+                    <ArrowRight size={18} />
                   </button>
                 </div>
               </div>
@@ -152,19 +242,29 @@ export default function Blog() {
       )}
 
       {/* Blog Grid */}
-      <section className="relative bg-void py-24 md:py-32">
-        <div className="section-padding">
+      <section className="py-24">
+
+        <div className="max-w-7xl mx-auto px-6">
+
           {/* Filter */}
-          <div className="flex items-center gap-3 mb-12 flex-wrap">
-            <Tag size={18} className="text-white/30 mr-2" />
+          <div className="flex items-center gap-3 mb-14 flex-wrap">
+
+            <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center">
+
+              <Tag
+                size={18}
+                className="text-gray-500"
+              />
+            </div>
+
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-inter text-sm px-4 py-2 rounded-pill border transition-all duration-300 ${
+                className={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 border ${
                   activeCategory === cat
-                    ? 'bg-neon-purple border-neon-purple text-white'
-                    : 'border-white/10 text-white/50 hover:border-white/30 hover:text-white'
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-md'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600'
                 }`}
               >
                 {cat}
@@ -173,47 +273,62 @@ export default function Blog() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             {filtered.map((post, index) => (
               <article
                 key={index}
-                className="group cursor-pointer"
+                className="group bg-white border border-gray-200 rounded-[28px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
               >
-                <div className="relative rounded-2xl overflow-hidden border border-white/10 mb-5">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-void/40 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="font-inter text-xs text-white bg-white/10 backdrop-blur-sm px-3 py-1 rounded-pill border border-white/10">
-                      {post.category}
-                    </span>
-                  </div>
+
+                {/* Image */}
+                <div className="aspect-[16/10] overflow-hidden">
+
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
                 </div>
 
-                <h3 className="font-playfair text-xl text-white mb-2 group-hover:text-neon-purple transition-colors leading-tight">
-                  {post.title}
-                </h3>
-                <p className="font-inter text-white/40 text-sm leading-relaxed mb-4 line-clamp-2">
-                  {post.excerpt}
-                </p>
+                {/* Content */}
+                <div className="p-6">
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-white/30 text-xs font-inter">
-                    <span>{post.author}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock size={10} />
-                      {post.readTime}
-                    </span>
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-600 mb-4">
+                    {post.category}
+                  </span>
+
+                  <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-3 group-hover:text-blue-600 transition-colors">
+                    {post.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+
+                  {/* Meta */}
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+
+                      <span>{post.author}</span>
+
+                      <span className="flex items-center gap-1">
+                        <Clock size={14} />
+                        {post.readTime}
+                      </span>
+                    </div>
+
+                    <button className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-all duration-300">
+
+                      Read More
+
+                      <ArrowRight
+                        size={16}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    </button>
                   </div>
-                  <ArrowRight
-                    size={16}
-                    className="text-white/20 group-hover:text-neon-purple group-hover:translate-x-1 transition-all"
-                  />
                 </div>
               </article>
             ))}

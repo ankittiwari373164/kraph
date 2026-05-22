@@ -5,7 +5,13 @@ import { ExternalLink, Filter } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Category = 'All' | 'Branding' | 'Digital' | 'Social' | 'Web' | 'AI'
+type Category =
+  | 'All'
+  | 'Branding'
+  | 'Marketing'
+  | 'Social Media'
+  | 'Web Design'
+  | 'Ecommerce'
 
 interface Project {
   title: string
@@ -18,88 +24,117 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'Quantum Rebrand',
-    client: 'TechVision Inc.',
-    category: 'Branding',
-    image: '/images/gallery2.jpg',
-    description: 'Complete brand overhaul for a leading SaaS company, resulting in 340% increase in brand recognition.',
-    tags: ['Brand Strategy', 'Visual Identity', 'Guidelines'],
-  },
-  {
-    title: 'Growth Engine',
-    client: 'ScaleUp Finance',
-    category: 'Digital',
-    image: '/images/gallery1.jpg',
-    description: 'Multi-channel digital marketing campaign that generated $2.4M in qualified pipeline.',
-    tags: ['SEO', 'PPC', 'Content'],
-  },
-  {
-    title: 'Viral Launch',
-    client: 'Nova App',
-    category: 'Social',
-    image: '/images/gallery3.jpg',
-    description: 'Social-first product launch that achieved 5M impressions and 200K downloads in 48 hours.',
-    tags: ['Social Media', 'Influencers', 'Content'],
-  },
-  {
-    title: 'AI Dashboard',
-    client: 'DataFlow Systems',
-    category: 'Web',
+    title: 'Modern Business Website',
+    client: 'Urban Café',
+    category: 'Web Design',
     image: '/images/service-web.jpg',
-    description: 'Immersive web experience featuring real-time data visualization and AI-powered insights.',
-    tags: ['Web Design', 'Development', 'UX/UI'],
+    description:
+      'Designed a modern and mobile-friendly business website focused on improving customer engagement and local visibility.',
+    tags: ['Responsive Design', 'SEO', 'UI/UX'],
   },
+
   {
-    title: 'Neural Campaign',
-    client: 'Cortex AI',
-    category: 'AI',
-    image: '/images/service-ai.jpg',
-    description: 'First-of-its-kind AI-driven marketing campaign with dynamic personalization at scale.',
-    tags: ['AI/ML', 'Personalization', 'Analytics'],
+    title: 'Local SEO Growth',
+    client: 'Fresh Mart',
+    category: 'Marketing',
+    image: '/images/service-seo.jpg',
+    description:
+      'Improved local search visibility and Google rankings to help the business attract more nearby customers.',
+    tags: ['Google Business', 'SEO', 'Local Reach'],
   },
+
   {
-    title: 'Brand Elevation',
-    client: 'Luxe Retail',
+    title: 'Social Media Campaign',
+    client: 'Glow Beauty',
+    category: 'Social Media',
+    image: '/images/service-social.jpg',
+    description:
+      'Created engaging social media content and campaigns to increase audience interaction and brand awareness.',
+    tags: ['Instagram', 'Content', 'Brand Growth'],
+  },
+
+  {
+    title: 'Creative Brand Identity',
+    client: 'Nova Fashion',
     category: 'Branding',
     image: '/images/service-branding.jpg',
-    description: 'Premium brand identity for luxury retail chain expanding into digital markets.',
-    tags: ['Luxury Branding', 'Packaging', 'Digital'],
+    description:
+      'Developed a complete visual identity including logo, brand colors, and marketing creatives.',
+    tags: ['Branding', 'Logo', 'Design'],
   },
+
   {
-    title: 'Performance Plus',
-    client: 'GameVault',
-    category: 'Digital',
+    title: 'Ecommerce Store Marketing',
+    client: 'Trend Cart',
+    category: 'Ecommerce',
     image: '/images/service-performance.jpg',
-    description: 'Performance marketing strategy that reduced CAC by 45% while doubling conversion rates.',
-    tags: ['Paid Media', 'CRO', 'Analytics'],
+    description:
+      'Boosted online sales through ecommerce marketing strategies, paid ads, and conversion optimization.',
+    tags: ['Meta Ads', 'Google Ads', 'Sales'],
   },
+
   {
-    title: 'Content Studio',
-    client: 'MediaHive',
-    category: 'Social',
+    title: 'Product Photography',
+    client: 'Nature Bliss',
+    category: 'Branding',
+    image: '/images/gallery1.jpg',
+    description:
+      'Created aesthetic product photography for ecommerce and social media marketing campaigns.',
+    tags: ['Photography', 'Editing', 'Creative'],
+  },
+
+  {
+    title: 'Website Content Strategy',
+    client: 'Bright Solutions',
+    category: 'Marketing',
     image: '/images/service-content.jpg',
-    description: 'End-to-end content production and distribution system for a media startup.',
-    tags: ['Video', 'Motion', 'Distribution'],
+    description:
+      'Produced SEO-friendly content and website copy focused on increasing trust and conversions.',
+    tags: ['Content Writing', 'SEO', 'Copywriting'],
   },
+
   {
-    title: 'E-commerce Revamp',
-    client: 'ShopStream',
-    category: 'Web',
-    image: '/images/service-seo.jpg',
-    description: 'Full e-commerce rebuild with headless architecture and conversion-focused design.',
-    tags: ['E-commerce', 'Development', 'CRO'],
+    title: 'AI Product Visuals',
+    client: 'Smart Living',
+    category: 'Ecommerce',
+    image: '/images/service-ai.jpg',
+    description:
+      'Generated realistic AI-powered product visuals for social media promotions and online branding.',
+    tags: ['AI Photos', 'Branding', 'Social Media'],
+  },
+
+  {
+    title: 'Business Landing Page',
+    client: 'Elite Realty',
+    category: 'Web Design',
+    image: '/images/gallery3.jpg',
+    description:
+      'Built a conversion-focused landing page with a clean design and mobile-first experience.',
+    tags: ['Landing Page', 'UI Design', 'Lead Generation'],
   },
 ]
 
-const categories: Category[] = ['All', 'Branding', 'Digital', 'Social', 'Web', 'AI']
+const categories: Category[] = [
+  'All',
+  'Branding',
+  'Marketing',
+  'Social Media',
+  'Web Design',
+  'Ecommerce',
+]
 
 export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState<Category>('All')
+  const [activeCategory, setActiveCategory] =
+    useState<Category>('All')
+
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  const filteredProjects = activeCategory === 'All'
-    ? projects
-    : projects.filter((p) => p.category === activeCategory)
+  const filteredProjects =
+    activeCategory === 'All'
+      ? projects
+      : projects.filter(
+          (p) => p.category === activeCategory
+        )
 
   useEffect(() => {
     const section = sectionRef.current
@@ -108,16 +143,16 @@ export default function Portfolio() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.portfolio-card',
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
-          stagger: 0.1,
+          stagger: 0.08,
           duration: 0.7,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 70%',
+            start: 'top 80%',
             toggleActions: 'play none none reset',
           },
         }
@@ -128,41 +163,54 @@ export default function Portfolio() {
   }, [activeCategory])
 
   return (
-    <main>
-      {/* Hero */}
-      <section className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden bg-void pt-20">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-blue/10 rounded-full blur-[200px]" />
-        </div>
+    <main className="bg-[#f8fafc]">
 
-        <div className="relative z-10 text-center section-padding">
-          <p className="font-teko text-neon-blue text-xl uppercase tracking-[0.3em] mb-6">
-            Our Work
+      {/* Hero Section */}
+      <section className="bg-white pt-24 pb-20">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+
+          <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
+            Our Recent Work
           </p>
-          <h1 className="font-playfair text-5xl md:text-7xl text-white leading-tight mb-6">
-            <span className="text-gradient-neon">Portfolio</span>
+
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
+            Projects That Help Businesses
+            <span className="text-blue-600"> Grow Online</span>
           </h1>
-          <p className="font-inter text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            A curated selection of our most impactful work. Each project represents 
-            a partnership built on trust, creativity, and results.
+
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Explore some of our recent work in website design,
+            branding, ecommerce marketing, SEO, social media,
+            and creative content solutions.
           </p>
         </div>
       </section>
 
-      {/* Filter + Grid */}
-      <section ref={sectionRef} className="relative bg-void py-24 md:py-32">
-        <div className="section-padding">
-          {/* Filter */}
-          <div className="flex items-center justify-center gap-3 mb-16 flex-wrap">
-            <Filter size={18} className="text-white/30 mr-2" />
+      {/* Portfolio Grid */}
+      <section
+        ref={sectionRef}
+        className="py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6">
+
+          {/* Filters */}
+          <div className="flex items-center justify-center gap-3 mb-14 flex-wrap">
+
+            <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+              <Filter
+                size={18}
+                className="text-gray-500"
+              />
+            </div>
+
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-inter text-sm px-5 py-2 rounded-pill border transition-all duration-300 ${
+                className={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 border ${
                   activeCategory === cat
-                    ? 'bg-neon-purple border-neon-purple text-white'
-                    : 'border-white/10 text-white/50 hover:border-white/30 hover:text-white'
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-md'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600'
                 }`}
               >
                 {cat}
@@ -171,55 +219,63 @@ export default function Portfolio() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+
             {filteredProjects.map((project, index) => (
               <div
                 key={`${activeCategory}-${index}`}
-                className="portfolio-card group relative rounded-2xl overflow-hidden border border-white/10 bg-void-light cursor-pointer"
+                className="portfolio-card bg-white rounded-[28px] overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 group"
               >
+                {/* Image */}
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-                {/* Content overlay */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-inter text-xs text-neon-blue bg-neon-blue/10 px-3 py-1 rounded-pill border border-neon-blue/20">
-                      {project.category}
-                    </span>
-                  </div>
-                  <h3 className="font-playfair text-2xl text-white mb-1 group-hover:text-neon-purple transition-colors">
+                {/* Content */}
+                <div className="p-6">
+
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-600 mb-4">
+                    {project.category}
+                  </span>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
                     {project.title}
                   </h3>
-                  <p className="font-inter text-white/50 text-sm mb-3">
+
+                  <p className="text-sm text-gray-500 mb-4">
                     {project.client}
                   </p>
-                  <p className="font-inter text-white/40 text-xs leading-relaxed mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                  <p className="text-gray-600 text-sm leading-relaxed mb-5">
                     {project.description}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex gap-2">
-                      {project.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-inter text-[10px] text-white/30 bg-white/5 px-2 py-1 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-neon-purple transition-colors">
-                      <ExternalLink size={16} className="text-white" />
-                    </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
+
+                  {/* Button */}
+                  <button className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                    View Project
+
+                    <ExternalLink size={16} />
+                  </button>
                 </div>
               </div>
             ))}
+
           </div>
         </div>
       </section>

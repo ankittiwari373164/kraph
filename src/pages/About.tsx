@@ -1,144 +1,85 @@
 import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Award, Users, Globe, Rocket } from 'lucide-react'
+import {
+  Award,
+  Users,
+  Globe,
+  Rocket,
+  CheckCircle2,
+} from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Orbital Text Helix component
-function OrbitalHelix() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000)
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    renderer.setSize(container.clientWidth, container.clientHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearColor(0x000000, 0)
-    container.appendChild(renderer.domElement)
-
-    function generateTextRing(text: string, radius: number) {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')!
-      canvas.height = 128
-      ctx.font = 'bold 100px Inter'
-      const metrics = ctx.measureText(text)
-      canvas.width = metrics.width + 20
-      ctx.font = 'bold 100px Inter'
-      ctx.fillStyle = '#ffffff'
-      ctx.fillText(text, 10, 100)
-
-      const texture = new THREE.CanvasTexture(canvas)
-      const anglePerPixel = 0.005
-      let totalAngle = 0
-      const planes: THREE.Mesh[] = []
-
-      for (let i = 0; i < text.length; i++) {
-        const charW = ctx.measureText(text[i]).width
-        const charAngle = charW * anglePerPixel
-
-        const planeGeom = new THREE.PlaneGeometry(charW * 0.05, 6.4)
-        const planeMat = new THREE.MeshBasicMaterial({
-          transparent: true,
-          map: texture,
-          side: THREE.DoubleSide,
-          depthWrite: false,
-        })
-        planeMat.map!.offset.x = (ctx.measureText(text.substring(0, i)).width + 2) / canvas.width
-        planeMat.map!.repeat.x = (charW - 4) / canvas.width
-
-        const plane = new THREE.Mesh(planeGeom, planeMat)
-        plane.position.x = radius * Math.cos(totalAngle + charAngle / 2)
-        plane.position.z = radius * Math.sin(totalAngle + charAngle / 2)
-        plane.rotation.y = -(totalAngle + charAngle / 2)
-        totalAngle += charAngle
-        planes.push(plane)
-      }
-
-      return planes
-    }
-
-    const strings = ['GROWTH', 'ALGORITHMS', 'STRATEGY', 'IMPACT']
-    const rings: { planes: THREE.Mesh[]; offsetAngle: number; speed: number }[] = []
-    const radius = 80
-
-    strings.forEach((str) => {
-      const planes = generateTextRing(str, radius)
-      const offsetAngle = Math.PI - (str.length * 0.005 * 10)
-      rings.push({
-        planes,
-        offsetAngle,
-        speed: 0.004 + Math.random() * 0.004,
-      })
-      planes.forEach((p) => scene.add(p))
-    })
-
-    camera.position.set(0, 10, 120)
-    camera.lookAt(0, 0, 0)
-
-    let globalRotation = 0
-    let animId: number
-
-    const animate = () => {
-      animId = requestAnimationFrame(animate)
-      globalRotation += 0.002
-
-      rings.forEach((ring) => {
-        const ringAngle = (globalRotation * ring.speed * 100) + ring.offsetAngle
-        ring.planes.forEach((plane, index) => {
-          plane.position.x = 80 * Math.cos(ringAngle + index * 0.3)
-          plane.position.z = 80 * Math.sin(ringAngle + index * 0.3)
-          plane.rotation.y = -(ringAngle + index * 0.3)
-        })
-      })
-
-      renderer.render(scene, camera)
-    }
-    animate()
-
-    const handleResize = () => {
-      camera.aspect = container.clientWidth / container.clientHeight
-      camera.updateProjectionMatrix()
-      renderer.setSize(container.clientWidth, container.clientHeight)
-    }
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', handleResize)
-      renderer.dispose()
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement)
-      }
-    }
-  }, [])
-
+/* Soft Background Shapes */
+function BackgroundShapes() {
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 z-0"
-      style={{ opacity: 0.4 }}
-    />
+    <>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-40" />
+
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-40" />
+    </>
   )
 }
 
 const values = [
-  { icon: Award, title: 'Excellence', desc: 'We pursue perfection in every pixel, every campaign, every strategy.' },
-  { icon: Users, title: 'Collaboration', desc: 'We partner with our clients, becoming an extension of their team.' },
-  { icon: Globe, title: 'Global Vision', desc: 'We think beyond borders, crafting strategies for worldwide impact.' },
-  { icon: Rocket, title: 'Innovation', desc: 'We stay ahead of the curve, embracing cutting-edge technologies.' },
+  {
+    icon: Award,
+    title: 'Quality Work',
+    desc:
+      'We focus on creating clean, modern, and professional digital solutions that help businesses grow.',
+  },
+
+  {
+    icon: Users,
+    title: 'Strong Collaboration',
+    desc:
+      'We work closely with every client to understand their goals and create strategies that deliver real results.',
+  },
+
+  {
+    icon: Globe,
+    title: 'Modern Presence',
+    desc:
+      'We help businesses build a strong online presence through websites, branding, and marketing.',
+  },
+
+  {
+    icon: Rocket,
+    title: 'Creative Growth',
+    desc:
+      'We combine creativity and strategy to help brands grow faster and connect with more customers.',
+  },
 ]
 
 const milestones = [
-  { year: '2018', title: 'Founded', desc: 'Kraph was born with a vision to revolutionize digital marketing.' },
-  { year: '2020', title: '100 Clients', desc: 'Reached our first milestone of 100 satisfied clients worldwide.' },
-  { year: '2022', title: 'AI Integration', desc: 'Pioneered AI-powered marketing strategies in the industry.' },
-  { year: '2024', title: 'Global Expansion', desc: 'Expanded operations to 15+ countries across 4 continents.' },
+  {
+    year: '2019',
+    title: 'Started Our Journey',
+    desc:
+      'We started with a vision to help businesses build stronger digital identities.',
+  },
+
+  {
+    year: '2021',
+    title: 'Growing Client Base',
+    desc:
+      'Worked with multiple businesses across website design, social media, and branding.',
+  },
+
+  {
+    year: '2023',
+    title: 'Expanded Services',
+    desc:
+      'Added ecommerce marketing, AI visuals, SEO, and advanced content creation services.',
+  },
+
+  {
+    year: '2025',
+    title: 'Helping Brands Grow',
+    desc:
+      'Continuing to help businesses scale online with creative digital solutions.',
+  },
 ]
 
 export default function About() {
@@ -146,6 +87,7 @@ export default function About() {
 
   useEffect(() => {
     const section = sectionRef.current
+
     if (!section) return
 
     const ctx = gsap.context(() => {
@@ -158,9 +100,10 @@ export default function About() {
           stagger: 0.12,
           duration: 0.8,
           ease: 'power3.out',
+
           scrollTrigger: {
             trigger: section,
-            start: 'top 70%',
+            start: 'top 80%',
             toggleActions: 'play none none reset',
           },
         }
@@ -171,58 +114,100 @@ export default function About() {
   }, [])
 
   return (
-    <main>
-      {/* Hero with Helix */}
-      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-void">
-        <OrbitalHelix />
-        <div className="relative z-10 text-center section-padding">
-          <p className="font-teko text-neon-purple text-xl uppercase tracking-[0.3em] mb-6">
-            About Kraph
+    <main className="bg-[#f8fafc]">
+
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-white pt-28 pb-24">
+
+        <BackgroundShapes />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+
+          <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
+            About Us
           </p>
-          <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-8">
-            We Engineer
-            <br />
-            <span className="text-gradient-neon">Brand Dominance</span>
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-8">
+            Helping Businesses Build
+            <span className="text-blue-600"> Strong Digital Presence</span>
           </h1>
-          <p className="font-inter text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            A team of visionary strategists, creative technologists, and data scientists 
-            dedicated to transforming how brands connect with the world.
+
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We are a creative digital agency focused on website design,
+            ecommerce marketing, social media management, branding,
+            SEO, and content creation that helps businesses grow online.
           </p>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-void to-transparent z-[5]" />
       </section>
 
       {/* Mission */}
-      <section ref={sectionRef} className="relative bg-void py-24 md:py-32">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-blue/5 rounded-full blur-[200px] pointer-events-none" />
+      <section
+        ref={sectionRef}
+        className="py-24"
+      >
 
-        <div className="section-padding relative z-10">
+        <div className="max-w-7xl mx-auto px-6">
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left */}
             <div>
-              <p className="about-reveal font-teko text-neon-cyan text-lg uppercase tracking-[0.2em] mb-4">
+
+              <p className="about-reveal text-blue-600 font-semibold uppercase tracking-wide mb-4">
                 Our Mission
               </p>
-              <h2 className="about-reveal font-playfair text-4xl md:text-5xl text-white leading-tight mb-6">
-                Redefining What&apos;s
-                <br />
-                <span className="text-neon-purple">Possible</span>
+
+              <h2 className="about-reveal text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+                Creative Solutions That
+                <span className="text-blue-600"> Help Businesses Grow</span>
               </h2>
-              <p className="about-reveal font-inter text-white/50 text-base leading-relaxed mb-6">
-                At Kraph, we believe every brand has the potential to be extraordinary. 
-                Our mission is to unlock that potential through the perfect fusion of 
-                creativity, technology, and data-driven strategy.
+
+              <p className="about-reveal text-gray-600 leading-relaxed mb-6">
+                We believe every business deserves a strong and professional
+                online presence. Our mission is to help brands connect
+                with more customers through modern design, creative
+                marketing, and impactful digital experiences.
               </p>
-              <p className="about-reveal font-inter text-white/50 text-base leading-relaxed">
-                We don&apos;t just run campaigns — we architect digital ecosystems that 
-                transform businesses. From AI-powered personalization to immersive web 
-                experiences, we push the boundaries of what marketing can achieve.
+
+              <p className="about-reveal text-gray-600 leading-relaxed mb-8">
+                From website design and social media management to ecommerce
+                marketing and branding, we create solutions that are simple,
+                effective, and focused on real business growth.
               </p>
+
+              <div className="flex flex-col gap-4">
+
+                {[
+                  'Modern Website Design',
+                  'Social Media & Branding',
+                  'SEO & Google Business Optimization',
+                  'Ecommerce Marketing Solutions',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3"
+                  >
+
+                    <CheckCircle2
+                      size={20}
+                      className="text-blue-600"
+                    />
+
+                    <span className="text-gray-700">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="about-reveal rounded-2xl overflow-hidden border border-white/10">
+
+            {/* Right Image */}
+            <div className="about-reveal rounded-[32px] overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300">
+
               <img
                 src="/images/about-office.jpg"
-                alt="Kraph Office"
-                className="w-full h-auto"
+                alt="About Agency"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -230,30 +215,42 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="relative bg-void py-24 md:py-32 border-t border-white/5">
-        <div className="section-padding">
+      <section className="py-24 bg-white border-t border-gray-200">
+
+        <div className="max-w-7xl mx-auto px-6">
+
           <div className="text-center mb-16">
-            <p className="font-teko text-neon-purple text-lg uppercase tracking-[0.2em] mb-4">
-              Our DNA
+
+            <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
+              Why Choose Us
             </p>
-            <h2 className="font-playfair text-4xl md:text-5xl text-white">
-              Core <span className="text-gradient-neon">Values</span>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+              Our Core Values
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+
             {values.map((value, i) => (
               <div
                 key={i}
-                className="glass-card p-8 text-center group hover:border-neon-purple/30 transition-all duration-500"
+                className="bg-[#f8fafc] border border-gray-200 rounded-[28px] p-8 text-center shadow-sm hover:shadow-xl transition-all duration-300"
               >
-                <div className="w-16 h-16 rounded-2xl bg-neon-purple/10 border border-neon-purple/20 flex items-center justify-center mx-auto mb-6 group-hover:bg-neon-purple/20 group-hover:scale-110 transition-all duration-300">
-                  <value.icon size={28} className="text-neon-purple" />
+
+                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto mb-6">
+
+                  <value.icon
+                    size={28}
+                    className="text-blue-600"
+                  />
                 </div>
-                <h3 className="font-inter font-semibold text-lg text-white mb-3">
+
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
                   {value.title}
                 </h3>
-                <p className="font-inter text-white/40 text-sm leading-relaxed">
+
+                <p className="text-gray-600 leading-relaxed text-sm">
                   {value.desc}
                 </p>
               </div>
@@ -263,39 +260,55 @@ export default function About() {
       </section>
 
       {/* Timeline */}
-      <section className="relative bg-void py-24 md:py-32">
-        <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-neon-purple/5 rounded-full blur-[200px] -translate-y-1/2 pointer-events-none" />
+      <section className="py-24">
 
-        <div className="section-padding relative z-10">
+        <div className="max-w-5xl mx-auto px-6">
+
           <div className="text-center mb-16">
-            <p className="font-teko text-neon-cyan text-lg uppercase tracking-[0.2em] mb-4">
+
+            <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
               Our Journey
             </p>
-            <h2 className="font-playfair text-4xl md:text-5xl text-white">
-              Milestones of <span className="text-neon-purple">Growth</span>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+              Growing With Our Clients
             </h2>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="space-y-12">
+
             {milestones.map((milestone, i) => (
               <div
                 key={i}
-                className="flex gap-8 mb-12 last:mb-0 group"
+                className="flex gap-6"
               >
-                <div className="flex-shrink-0 w-24 text-right">
-                  <span className="font-teko text-3xl text-neon-purple">{milestone.year}</span>
+
+                {/* Year */}
+                <div className="w-24 shrink-0">
+
+                  <span className="text-2xl md:text-3xl font-bold text-blue-600">
+                    {milestone.year}
+                  </span>
                 </div>
-                <div className="flex-shrink-0 relative">
-                  <div className="w-4 h-4 rounded-full bg-neon-purple border-4 border-void group-hover:scale-150 transition-transform duration-300" />
+
+                {/* Line */}
+                <div className="relative flex flex-col items-center">
+
+                  <div className="w-4 h-4 rounded-full bg-blue-600" />
+
                   {i < milestones.length - 1 && (
-                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[1px] h-[60px] bg-gradient-to-b from-neon-purple/50 to-transparent" />
+                    <div className="w-[2px] h-full bg-blue-100 mt-2" />
                   )}
                 </div>
-                <div className="pb-8">
-                  <h3 className="font-inter font-semibold text-lg text-white mb-2">
+
+                {/* Content */}
+                <div className="pb-10">
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {milestone.title}
                   </h3>
-                  <p className="font-inter text-white/40 text-sm leading-relaxed">
+
+                  <p className="text-gray-600 leading-relaxed">
                     {milestone.desc}
                   </p>
                 </div>
@@ -305,171 +318,172 @@ export default function About() {
         </div>
       </section>
 
-      {/* Global Presence Map */}
-      <section className="relative bg-[#050b14] py-24 md:py-32 overflow-hidden">
-        <div className="section-padding">
-          <div className="text-center mb-12">
-            <p className="font-teko text-neon-cyan text-lg uppercase tracking-[0.2em] mb-4">
-              Global Reach
+      {/* Global Presence */}
+      <section className="py-24 bg-white border-t border-gray-200 overflow-hidden">
+
+        <div className="max-w-7xl mx-auto px-6">
+
+          <div className="text-center mb-16">
+
+            <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
+              Our Reach
             </p>
-            <h2 className="font-playfair text-4xl md:text-5xl text-white">
-              Our <span className="text-neon-purple">Presence</span>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Businesses We Work With
             </h2>
+
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              We work with startups, local businesses, ecommerce brands,
+              and growing companies to create modern digital experiences
+              that build trust and drive growth.
+            </p>
           </div>
 
-          {/* SVG World Map */}
-          <div className="relative w-full max-w-5xl mx-auto">
-            <svg
-              viewBox="0 0 1000 500"
-              className="w-full h-auto filter drop-shadow-[0_0_30px_rgba(0,0,0,0.5)]"
-            >
-              <defs>
-                <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#0f2c2c" />
-                  <stop offset="100%" stopColor="#2a8a8a" />
-                </linearGradient>
-                <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1a2e4c" />
-                  <stop offset="100%" stopColor="#3a7bd5" />
-                </linearGradient>
-                <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2a1a3a" />
-                  <stop offset="100%" stopColor="#bc13fe" />
-                </linearGradient>
-              </defs>
+          {/* Modern Map Section */}
+          <div className="relative rounded-[36px] bg-[#f8fafc] border border-gray-200 p-10 overflow-hidden shadow-sm">
 
-              {/* Simplified world continents */}
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M180,120 Q200,100 230,110 L250,130 Q240,160 220,170 L190,160 Q170,140 180,120Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M450,80 Q500,60 550,80 L580,120 Q570,180 520,200 L460,180 Q430,130 450,80Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M680,100 Q750,80 820,110 L850,160 Q830,220 760,230 L700,200 Q660,150 680,100Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M200,250 Q240,230 280,250 L310,300 Q290,380 240,400 L190,360 Q170,300 200,250Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M480,240 Q560,220 640,250 L670,320 Q640,400 540,410 L470,360 Q440,290 480,240Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M750,280 Q830,260 900,300 L920,370 Q880,420 800,410 L740,360 Q710,320 750,280Z"
-              />
-              <path
-                className="land-mass"
-                fill="#111d2e"
-                stroke="#1c2e45"
-                strokeWidth="0.5"
-                d="M820,380 Q870,360 910,390 L920,440 Q890,470 840,460 L800,430 Q790,400 820,380Z"
-              />
+            {/* Background Shapes */}
+            <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-30" />
 
-              {/* Routes */}
-              <path
-                className="map-route"
-                d="M510,140 Q600,100 750,160"
-                stroke="url(#grad-teal)"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                opacity="0.8"
-                style={{ filter: 'drop-shadow(0 0 6px #2a8a8a)' }}
-              />
-              <path
-                className="map-route"
-                d="M510,140 Q400,200 250,320"
-                stroke="url(#grad-blue)"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                opacity="0.8"
-                style={{ filter: 'drop-shadow(0 0 6px #3a7bd5)' }}
-              />
-              <path
-                className="map-route"
-                d="M750,160 Q780,280 830,400"
-                stroke="url(#grad-purple)"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                opacity="0.8"
-                style={{ filter: 'drop-shadow(0 0 6px #bc13fe)' }}
-              />
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-30" />
 
-              {/* Arc connectors */}
-              <path
-                className="map-arc"
-                d="M250,320 Q380,260 510,140"
-                stroke="rgba(255,215,0,0.3)"
-                strokeWidth="1"
-                strokeDasharray="4 4"
-                fill="none"
-              />
-              <path
-                className="map-arc"
-                d="M830,400 Q790,280 750,160"
-                stroke="rgba(255,215,0,0.3)"
-                strokeWidth="1"
-                strokeDasharray="4 4"
-                fill="none"
-              />
+            {/* SVG Map */}
+            <div className="relative z-10 max-w-5xl mx-auto">
 
-              {/* Destination dots */}
-              <circle cx="510" cy="140" r="5" fill="#FFD700" style={{ filter: 'drop-shadow(0 0 8px #FFD700)' }} />
-              <circle cx="750" cy="160" r="5" fill="#FFD700" style={{ filter: 'drop-shadow(0 0 8px #FFD700)' }} />
-              <circle cx="250" cy="320" r="5" fill="#FFD700" style={{ filter: 'drop-shadow(0 0 8px #FFD700)' }} />
-              <circle cx="830" cy="400" r="5" fill="#FFD700" style={{ filter: 'drop-shadow(0 0 8px #FFD700)' }} />
+              <svg
+                viewBox="0 0 1000 500"
+                className="w-full h-auto opacity-80"
+              >
 
-              {/* Rings */}
-              <circle cx="510" cy="140" r="12" fill="none" stroke="#FFD700" strokeWidth="1.5" opacity="0.4" />
-              <circle cx="750" cy="160" r="12" fill="none" stroke="#FFD700" strokeWidth="1.5" opacity="0.4" />
-              <circle cx="250" cy="320" r="12" fill="none" stroke="#FFD700" strokeWidth="1.5" opacity="0.4" />
-              <circle cx="830" cy="400" r="12" fill="none" stroke="#FFD700" strokeWidth="1.5" opacity="0.4" />
+                {/* Continents */}
+                <path
+                  fill="#dbeafe"
+                  stroke="#93c5fd"
+                  strokeWidth="1"
+                  d="M180,120 Q200,100 230,110 L250,130 Q240,160 220,170 L190,160 Q170,140 180,120Z"
+                />
 
-              {/* Labels */}
-              <text x="510" y="125" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter" opacity="0.8">London</text>
-              <text x="750" y="145" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter" opacity="0.8">Dubai</text>
-              <text x="250" y="345" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter" opacity="0.8">São Paulo</text>
-              <text x="830" y="425" textAnchor="middle" fill="white" fontSize="10" fontFamily="Inter" opacity="0.8">Sydney</text>
-            </svg>
+                <path
+                  fill="#dbeafe"
+                  stroke="#93c5fd"
+                  strokeWidth="1"
+                  d="M450,80 Q500,60 550,80 L580,120 Q570,180 520,200 L460,180 Q430,130 450,80Z"
+                />
+
+                <path
+                  fill="#dbeafe"
+                  stroke="#93c5fd"
+                  strokeWidth="1"
+                  d="M680,100 Q750,80 820,110 L850,160 Q830,220 760,230 L700,200 Q660,150 680,100Z"
+                />
+
+                <path
+                  fill="#dbeafe"
+                  stroke="#93c5fd"
+                  strokeWidth="1"
+                  d="M200,250 Q240,230 280,250 L310,300 Q290,380 240,400 L190,360 Q170,300 200,250Z"
+                />
+
+                <path
+                  fill="#dbeafe"
+                  stroke="#93c5fd"
+                  strokeWidth="1"
+                  d="M480,240 Q560,220 640,250 L670,320 Q640,400 540,410 L470,360 Q440,290 480,240Z"
+                />
+
+                {/* Connection Lines */}
+                <path
+                  d="M510,140 Q600,100 750,160"
+                  stroke="#2563eb"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="6 6"
+                />
+
+                <path
+                  d="M510,140 Q400,200 250,320"
+                  stroke="#8b5cf6"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray="6 6"
+                />
+
+                {/* Dots */}
+                <circle cx="510" cy="140" r="6" fill="#2563eb" />
+                <circle cx="750" cy="160" r="6" fill="#8b5cf6" />
+                <circle cx="250" cy="320" r="6" fill="#2563eb" />
+
+                {/* Labels */}
+                <text
+                  x="510"
+                  y="125"
+                  textAnchor="middle"
+                  fill="#111827"
+                  fontSize="12"
+                >
+                  London
+                </text>
+
+                <text
+                  x="750"
+                  y="145"
+                  textAnchor="middle"
+                  fill="#111827"
+                  fontSize="12"
+                >
+                  Dubai
+                </text>
+
+                <text
+                  x="250"
+                  y="345"
+                  textAnchor="middle"
+                  fill="#111827"
+                  fontSize="12"
+                >
+                  New York
+                </text>
+              </svg>
+            </div>
           </div>
 
-          {/* Location cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+          {/* Location Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+
             {[
-              { city: 'New York', role: 'Headquarters' },
-              { city: 'London', role: 'EMEA Hub' },
-              { city: 'Dubai', role: 'APAC Hub' },
-              { city: 'Sydney', role: 'Oceania Hub' },
+              {
+                city: 'New York',
+                role: 'Business Hub',
+              },
+
+              {
+                city: 'London',
+                role: 'Creative Projects',
+              },
+
+              {
+                city: 'Dubai',
+                role: 'Marketing Solutions',
+              },
+
+              {
+                city: 'Sydney',
+                role: 'Global Clients',
+              },
             ].map((loc, i) => (
-              <div key={i} className="glass-card p-4 text-center">
-                <p className="font-inter font-semibold text-white text-sm">{loc.city}</p>
-                <p className="font-inter text-white/40 text-xs">{loc.role}</p>
+              <div
+                key={i}
+                className="bg-[#f8fafc] border border-gray-200 rounded-[28px] p-6 text-center shadow-sm hover:shadow-lg transition-all duration-300"
+              >
+
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {loc.city}
+                </h3>
+
+                <p className="text-gray-600 text-sm">
+                  {loc.role}
+                </p>
               </div>
             ))}
           </div>
