@@ -7,58 +7,43 @@ gsap.registerPlugin(ScrollTrigger)
 const wallItems = [
   { text: 'WEBSITES', type: 'text' as const },
 
-  {
-    text: '500+',
-    type: 'counter' as const,
-    target: 500,
-    suffix: '+',
-  },
+  { text: 'CREATIVITY', type: 'text' as const },
 
   { text: 'BRANDING', type: 'text' as const },
 
+  { text: 'IDEAS', type: 'text' as const },
+
   { text: 'SOCIAL MEDIA', type: 'text' as const },
 
-  {
-    text: '98%',
-    type: 'counter' as const,
-    target: 98,
-    suffix: '%',
-  },
+  { text: 'DESIGN', type: 'text' as const },
 
   { text: 'SEO', type: 'text' as const },
 
+  { text: 'CONTENT', type: 'text' as const },
+
   { text: 'ECOMMERCE', type: 'text' as const },
 
-  {
-    text: '10M+',
-    type: 'counter' as const,
-    target: 10,
-    suffix: 'M+',
-  },
+  { text: 'GROWTH', type: 'text' as const },
 
   { text: 'MARKETING', type: 'text' as const },
 
-  { text: 'CONTENT', type: 'text' as const },
-
-  {
-    text: '150+',
-    type: 'counter' as const,
-    target: 150,
-    suffix: '+',
-  },
-
-  { text: 'CREATIVITY', type: 'text' as const },
-
   { text: 'STRATEGY', type: 'text' as const },
 
-  { text: 'RESULTS', type: 'text' as const },
+  { text: 'VISUALS', type: 'text' as const },
 
-  {
-    text: '350%',
-    type: 'counter' as const,
-    target: 350,
-    suffix: '%',
-  },
+  { text: 'STORYTELLING', type: 'text' as const },
+
+  { text: 'DIGITAL', type: 'text' as const },
+
+  { text: 'INNOVATION', type: 'text' as const },
+
+  { text: 'CREATORS', type: 'text' as const },
+
+  { text: 'STARTUPS', type: 'text' as const },
+
+  { text: 'LOCAL BRANDS', type: 'text' as const },
+
+  { text: 'ONLINE PRESENCE', type: 'text' as const },
 ]
 
 export default function StatsSection() {
@@ -100,43 +85,6 @@ export default function StatsSection() {
           }
         )
       })
-
-      /* Counters */
-      const counters =
-        gsap.utils.toArray<HTMLElement>(
-          '.modern-counter'
-        )
-
-      counters.forEach((el) => {
-        const target = parseInt(
-          el.dataset.target || '0'
-        )
-
-        const suffix =
-          el.dataset.suffix || ''
-
-        const obj = { val: 0 }
-
-        gsap.to(obj, {
-          val: target,
-
-          duration: 2,
-
-          ease: 'power2.out',
-
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions:
-              'play none none reset',
-          },
-
-          onUpdate: () => {
-            el.textContent =
-              Math.round(obj.val) + suffix
-          },
-        })
-      })
     }, section)
 
     return () => ctx.revert()
@@ -157,21 +105,22 @@ export default function StatsSection() {
       <div className="section-padding mb-12 relative z-10">
 
         <p className="text-blue-600 font-semibold uppercase tracking-[0.2em] mb-4">
-          Our Impact
+          Our Journey
         </p>
 
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-          Numbers That{' '}
-
+          Building Creative
           <span className="text-blue-600">
-            Speak
+            {' '}
+            Digital Experiences
           </span>
         </h2>
 
         <p className="text-gray-600 text-lg max-w-2xl leading-relaxed">
-          Real growth, measurable results, and digital
-          solutions that help businesses build stronger
-          online presence.
+          We’re a growing creative agency helping
+          businesses build modern websites,
+          branding, social media presence,
+          and digital marketing experiences.
         </p>
       </div>
 
@@ -181,66 +130,56 @@ export default function StatsSection() {
         {wallItems.map((item, index) => (
           <div
             key={index}
-            className={`wall-item text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-none tracking-tight ${
-              item.type === 'counter'
-                ? 'text-blue-600 cursor-default'
-                : 'text-gray-200 hover:text-gray-400 transition-colors duration-500'
-            }`}
+            className="wall-item text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-none tracking-tight text-gray-200 hover:text-blue-600 transition-colors duration-500"
           >
 
-            {item.type === 'counter' ? (
-              <span
-                className="modern-counter"
-                data-target={item.target}
-                data-suffix={item.suffix}
-              >
-                0
-              </span>
-            ) : (
-              item.text
-            )}
+            {item.text}
           </div>
         ))}
       </div>
 
-      {/* Stats Grid */}
+      {/* Bottom Cards */}
       <div className="section-padding mt-20 relative z-10">
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
 
           {[
             {
-              value: '500+',
-              label: 'Projects Delivered',
+              title: 'Creative Thinking',
+              desc:
+                'Ideas that help brands stand out online.',
             },
 
             {
-              value: '98%',
-              label: 'Client Satisfaction',
+              title: 'Modern Design',
+              desc:
+                'Clean and user-friendly digital experiences.',
             },
 
             {
-              value: '150+',
-              label: 'Business Clients',
+              title: 'Growing Brands',
+              desc:
+                'Helping businesses build stronger presence.',
             },
 
             {
-              value: '10M+',
-              label: 'Marketing Reach',
+              title: 'Digital Solutions',
+              desc:
+                'Websites, SEO, marketing, and branding.',
             },
-          ].map((stat, i) => (
+          ].map((item, i) => (
             <div
               key={i}
-              className="bg-[#f8fafc] border border-gray-200 shadow-sm p-6 md:p-8 text-center group hover:border-blue-200 hover:shadow-lg transition-all duration-500 rounded-[28px]"
+              className="bg-[#f8fafc] border border-gray-200 shadow-sm p-6 md:p-8 group hover:border-blue-200 hover:shadow-lg transition-all duration-500 rounded-[28px]"
             >
 
-              <p className="text-4xl md:text-5xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
 
-                {stat.value}
-              </p>
+                {item.title}
+              </h3>
 
-              <p className="text-gray-500 text-sm">
-                {stat.label}
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {item.desc}
               </p>
             </div>
           ))}

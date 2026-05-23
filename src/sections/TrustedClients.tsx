@@ -5,20 +5,21 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const clients = [
-  'NVIDIA',
-  'SPOTIFY',
-  'AIRBNB',
-  'STRIPE',
-  'NOTION',
-  'FIGMA',
-  'LINEAR',
-  'VERCEL',
-  'RAILWAY',
-  'SUPABASE',
+  'Local Businesses',
+  'Startups',
+  'Creators',
+  'Restaurants',
+  'Ecommerce Stores',
+  'Personal Brands',
+  'Coaching Brands',
+  'Fashion Stores',
+  'Real Estate',
+  'Small Businesses',
 ]
 
 export default function TrustedClients() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef =
+    useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -26,7 +27,9 @@ export default function TrustedClients() {
     if (!section) return
 
     const items =
-      section.querySelectorAll('.client-logo')
+      section.querySelectorAll(
+        '.client-logo'
+      )
 
     gsap.fromTo(
       items,
@@ -76,17 +79,20 @@ export default function TrustedClients() {
         <div className="text-center mb-14">
 
           <p className="text-blue-600 font-semibold uppercase tracking-[0.25em] mb-4">
-            Trusted By Businesses
+            Growing With Businesses
           </p>
 
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">
-            Brands & Companies We’ve Worked With
+            Helping Brands Build Their
+            Digital Presence
           </h2>
 
           <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            We help businesses build stronger digital presence
-            through website design, branding, social media,
-            ecommerce marketing, and SEO solutions.
+            We work with local businesses,
+            startups, creators, and growing
+            brands to create modern websites,
+            branding, social media, and
+            marketing solutions.
           </p>
         </div>
 
@@ -99,7 +105,7 @@ export default function TrustedClients() {
               className="client-logo bg-[#f8fafc] border border-gray-200 rounded-[24px] h-28 flex items-center justify-center shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-300 group cursor-default"
             >
 
-              <span className="text-xl md:text-2xl font-bold tracking-wide text-gray-400 group-hover:text-blue-600 transition-colors duration-300">
+              <span className="text-lg md:text-xl font-semibold tracking-wide text-gray-500 group-hover:text-blue-600 transition-colors duration-300 text-center px-4">
                 {client}
               </span>
             </div>

@@ -25,65 +25,62 @@ function BackgroundShapes() {
 const values = [
   {
     icon: Award,
-    title: 'Quality Work',
+    title: 'Creative Work',
     desc:
-      'We focus on creating clean, modern, and professional digital solutions that help businesses grow.',
+      'We focus on creating clean, modern, and impactful digital experiences for growing businesses.',
   },
 
   {
     icon: Users,
-    title: 'Strong Collaboration',
+    title: 'Real Collaboration',
     desc:
-      'We work closely with every client to understand their goals and create strategies that deliver real results.',
+      'We work closely with every client to understand their goals and create meaningful solutions.',
   },
 
   {
     icon: Globe,
-    title: 'Modern Presence',
+    title: 'Digital Presence',
     desc:
-      'We help businesses build a strong online presence through websites, branding, and marketing.',
+      'Helping businesses build strong online presence through websites, branding, and marketing.',
   },
 
   {
     icon: Rocket,
-    title: 'Creative Growth',
+    title: 'Growing Together',
     desc:
-      'We combine creativity and strategy to help brands grow faster and connect with more customers.',
+      'We believe in long-term growth, creativity, and building strong client relationships.',
   },
 ]
 
-const milestones = [
+const journey = [
   {
-    year: '2019',
-    title: 'Started Our Journey',
+    title: 'Started With Creativity',
     desc:
-      'We started with a vision to help businesses build stronger digital identities.',
+      'Kraph started with a simple vision — helping businesses build better online presence through design, creativity, and digital solutions.',
   },
 
   {
-    year: '2021',
-    title: 'Growing Client Base',
+    title: 'Learning & Building',
     desc:
-      'Worked with multiple businesses across website design, social media, and branding.',
+      'We spent time exploring modern design trends, website experiences, branding, and digital marketing strategies.',
   },
 
   {
-    year: '2023',
-    title: 'Expanded Services',
+    title: 'Working With Businesses',
     desc:
-      'Added ecommerce marketing, AI visuals, SEO, and advanced content creation services.',
+      'From local brands to growing startups, we started helping businesses improve their websites, social media, and online visibility.',
   },
 
   {
-    year: '2025',
-    title: 'Helping Brands Grow',
+    title: 'Growing Every Day',
     desc:
-      'Continuing to help businesses scale online with creative digital solutions.',
+      'We continue learning, creating, and building better experiences for businesses that want to grow online.',
   },
 ]
 
 export default function About() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef =
+    useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -104,7 +101,8 @@ export default function About() {
           scrollTrigger: {
             trigger: section,
             start: 'top 80%',
-            toggleActions: 'play none none reset',
+            toggleActions:
+              'play none none reset',
           },
         }
       )
@@ -129,11 +127,14 @@ export default function About() {
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-8">
             Helping Businesses Build
-            <span className="text-blue-600"> Strong Digital Presence</span>
+            <span className="text-blue-600">
+              {' '}
+              Strong Digital Presence
+            </span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We are a creative digital agency focused on website design,
+            We are a growing creative digital agency focused on website design,
             ecommerce marketing, social media management, branding,
             SEO, and content creation that helps businesses grow online.
           </p>
@@ -159,7 +160,10 @@ export default function About() {
 
               <h2 className="about-reveal text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
                 Creative Solutions That
-                <span className="text-blue-600"> Help Businesses Grow</span>
+                <span className="text-blue-600">
+                  {' '}
+                  Help Businesses Grow
+                </span>
               </h2>
 
               <p className="about-reveal text-gray-600 leading-relaxed mb-6">
@@ -259,7 +263,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Journey */}
       <section className="py-24">
 
         <div className="max-w-5xl mx-auto px-6">
@@ -271,46 +275,38 @@ export default function About() {
             </p>
 
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-              Growing With Our Clients
+              Building & Growing Step By Step
             </h2>
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-8">
 
-            {milestones.map((milestone, i) => (
+            {journey.map((item, i) => (
               <div
                 key={i}
-                className="flex gap-6"
+                className="bg-white border border-gray-200 rounded-[30px] p-8 shadow-sm hover:shadow-lg transition-all duration-300"
               >
 
-                {/* Year */}
-                <div className="w-24 shrink-0">
+                <div className="flex items-start gap-5">
 
-                  <span className="text-2xl md:text-3xl font-bold text-blue-600">
-                    {milestone.year}
-                  </span>
-                </div>
+                  <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
 
-                {/* Line */}
-                <div className="relative flex flex-col items-center">
+                    <Rocket
+                      size={24}
+                      className="text-blue-600"
+                    />
+                  </div>
 
-                  <div className="w-4 h-4 rounded-full bg-blue-600" />
+                  <div>
 
-                  {i < milestones.length - 1 && (
-                    <div className="w-[2px] h-full bg-blue-100 mt-2" />
-                  )}
-                </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                      {item.title}
+                    </h3>
 
-                {/* Content */}
-                <div className="pb-10">
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {milestone.title}
-                  </h3>
-
-                  <p className="text-gray-600 leading-relaxed">
-                    {milestone.desc}
-                  </p>
+                    <p className="text-gray-600 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -318,7 +314,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Global Presence */}
+      {/* Collaboration Section */}
       <section className="py-24 bg-white border-t border-gray-200 overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-6">
@@ -326,166 +322,199 @@ export default function About() {
           <div className="text-center mb-16">
 
             <p className="text-blue-600 font-semibold uppercase tracking-wide mb-4">
-              Our Reach
+              Who We Work With
             </p>
 
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Businesses We Work With
+              Growing With Local Businesses & Startups
             </h2>
 
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              We work with startups, local businesses, ecommerce brands,
-              and growing companies to create modern digital experiences
-              that build trust and drive growth.
+              We collaborate with startups, creators, ecommerce stores,
+              and local businesses to build modern digital experiences
+              that help brands grow online.
             </p>
           </div>
 
-          {/* Modern Map Section */}
-          <div className="relative rounded-[36px] bg-[#f8fafc] border border-gray-200 p-10 overflow-hidden shadow-sm">
+          {/* Modern Collaboration Layout */}
+          <div className="relative rounded-[40px] bg-gradient-to-br from-[#f8fbff] to-[#eef4ff] border border-blue-100 overflow-hidden shadow-sm">
 
-            {/* Background Shapes */}
-            <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-30" />
+            {/* Glow Effects */}
+            <div className="absolute top-0 left-0 w-[350px] h-[350px] bg-blue-200/40 rounded-full blur-[120px]" />
 
-            <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-30" />
+            <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-purple-200/40 rounded-full blur-[120px]" />
 
-            {/* SVG Map */}
-            <div className="relative z-10 max-w-5xl mx-auto">
+            <div className="relative z-10 grid lg:grid-cols-2 gap-12 p-8 md:p-14 items-center">
 
-              <svg
-                viewBox="0 0 1000 500"
-                className="w-full h-auto opacity-80"
-              >
+              {/* Left Content */}
+              <div>
 
-                {/* Continents */}
-                <path
-                  fill="#dbeafe"
-                  stroke="#93c5fd"
-                  strokeWidth="1"
-                  d="M180,120 Q200,100 230,110 L250,130 Q240,160 220,170 L190,160 Q170,140 180,120Z"
-                />
+                <div className="inline-flex items-center gap-2 bg-white border border-blue-100 rounded-full px-5 py-2 shadow-sm mb-8">
 
-                <path
-                  fill="#dbeafe"
-                  stroke="#93c5fd"
-                  strokeWidth="1"
-                  d="M450,80 Q500,60 550,80 L580,120 Q570,180 520,200 L460,180 Q430,130 450,80Z"
-                />
+                  <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
 
-                <path
-                  fill="#dbeafe"
-                  stroke="#93c5fd"
-                  strokeWidth="1"
-                  d="M680,100 Q750,80 820,110 L850,160 Q830,220 760,230 L700,200 Q660,150 680,100Z"
-                />
+                  <span className="text-sm font-medium text-gray-700">
+                    Growing From Gwalior
+                  </span>
+                </div>
 
-                <path
-                  fill="#dbeafe"
-                  stroke="#93c5fd"
-                  strokeWidth="1"
-                  d="M200,250 Q240,230 280,250 L310,300 Q290,380 240,400 L190,360 Q170,300 200,250Z"
-                />
+                <h3 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
 
-                <path
-                  fill="#dbeafe"
-                  stroke="#93c5fd"
-                  strokeWidth="1"
-                  d="M480,240 Q560,220 640,250 L670,320 Q640,400 540,410 L470,360 Q440,290 480,240Z"
-                />
-
-                {/* Connection Lines */}
-                <path
-                  d="M510,140 Q600,100 750,160"
-                  stroke="#2563eb"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="6 6"
-                />
-
-                <path
-                  d="M510,140 Q400,200 250,320"
-                  stroke="#8b5cf6"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="6 6"
-                />
-
-                {/* Dots */}
-                <circle cx="510" cy="140" r="6" fill="#2563eb" />
-                <circle cx="750" cy="160" r="6" fill="#8b5cf6" />
-                <circle cx="250" cy="320" r="6" fill="#2563eb" />
-
-                {/* Labels */}
-                <text
-                  x="510"
-                  y="125"
-                  textAnchor="middle"
-                  fill="#111827"
-                  fontSize="12"
-                >
-                  London
-                </text>
-
-                <text
-                  x="750"
-                  y="145"
-                  textAnchor="middle"
-                  fill="#111827"
-                  fontSize="12"
-                >
-                  Dubai
-                </text>
-
-                <text
-                  x="250"
-                  y="345"
-                  textAnchor="middle"
-                  fill="#111827"
-                  fontSize="12"
-                >
-                  New York
-                </text>
-              </svg>
-            </div>
-          </div>
-
-          {/* Location Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-
-            {[
-              {
-                city: 'New York',
-                role: 'Business Hub',
-              },
-
-              {
-                city: 'London',
-                role: 'Creative Projects',
-              },
-
-              {
-                city: 'Dubai',
-                role: 'Marketing Solutions',
-              },
-
-              {
-                city: 'Sydney',
-                role: 'Global Clients',
-              },
-            ].map((loc, i) => (
-              <div
-                key={i}
-                className="bg-[#f8fafc] border border-gray-200 rounded-[28px] p-6 text-center shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {loc.city}
+                  Building Digital Presence
+                  <span className="text-blue-600">
+                    {' '}
+                    For Modern Businesses
+                  </span>
                 </h3>
 
-                <p className="text-gray-600 text-sm">
-                  {loc.role}
+                <p className="text-gray-600 text-lg leading-relaxed mb-10">
+                  We help startups, creators, local businesses,
+                  and ecommerce brands grow online through
+                  modern websites, branding, social media,
+                  SEO, and marketing solutions.
                 </p>
+
+                {/* Features */}
+                <div className="grid sm:grid-cols-2 gap-5">
+
+                  {[
+                    'Website Designing',
+                    'Social Media Handling',
+                    'Local SEO & GMB',
+                    'Ecommerce Marketing',
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="bg-white border border-gray-200 rounded-2xl px-5 py-4 flex items-center gap-3 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300"
+                    >
+
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+
+                        <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                      </div>
+
+                      <span className="font-medium text-gray-800">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+
+              {/* Right Visual */}
+              <div className="relative">
+
+                {/* Main Card */}
+                <div className="relative bg-white border border-gray-200 rounded-[36px] p-8 shadow-xl overflow-hidden">
+
+                  {/* Background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
+
+                  <div className="relative z-10">
+
+                    {/* Top Badge */}
+                    <div className="flex items-center justify-between mb-10">
+
+                      <div>
+
+                        <p className="text-sm text-gray-500 mb-1">
+                          Creative Agency
+                        </p>
+
+                        <h4 className="text-2xl font-bold text-gray-900">
+                          Kraph Studio
+                        </h4>
+                      </div>
+
+                      <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
+
+                        <span className="text-white font-bold text-xl">
+                          K
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Floating Cards */}
+                    <div className="space-y-5">
+
+                      {[
+                        {
+                          title: 'Modern Websites',
+                          desc: 'Responsive & user-friendly experiences.',
+                        },
+
+                        {
+                          title: 'Creative Branding',
+                          desc: 'Designs that help brands stand out.',
+                        },
+
+                        {
+                          title: 'Social Media Growth',
+                          desc: 'Content & strategies for engagement.',
+                        },
+                      ].map((card, i) => (
+                        <div
+                          key={i}
+                          className="bg-[#f8fafc] border border-gray-200 rounded-2xl p-5 hover:border-blue-200 hover:shadow-md transition-all duration-300"
+                        >
+
+                          <h5 className="font-semibold text-gray-900 mb-2">
+                            {card.title}
+                          </h5>
+
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            {card.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bottom Tags */}
+                    <div className="flex flex-wrap gap-3 mt-8">
+
+                      {[
+                        'Design',
+                        'Marketing',
+                        'SEO',
+                        'Branding',
+                        'Content',
+                      ].map((tag, i) => (
+                        <div
+                          key={i}
+                          className="px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-medium"
+                        >
+
+                          {tag}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute -top-5 -right-5 bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-lg">
+
+                  <p className="text-sm text-gray-500 mb-1">
+                    Focused On
+                  </p>
+
+                  <p className="font-semibold text-gray-900">
+                    Real Business Growth
+                  </p>
+                </div>
+
+                <div className="absolute -bottom-5 -left-5 bg-blue-600 rounded-2xl px-6 py-5 shadow-xl">
+
+                  <p className="text-white text-sm mb-1">
+                    Helping Brands
+                  </p>
+
+                  <p className="text-white font-semibold text-lg">
+                    Grow Online
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
