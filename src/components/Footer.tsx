@@ -6,6 +6,7 @@ import {
   Instagram,
   Facebook,
   Linkedin,
+  MessageCircle,
   ArrowUpRight,
 } from 'lucide-react'
 
@@ -78,19 +79,43 @@ export default function Footer() {
             <div className="flex items-center gap-3">
 
               {[
-                Instagram,
-                Facebook,
-                Linkedin,
-              ].map((Icon, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="w-10 h-10 rounded-xl border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all duration-300 shadow-sm"
-                >
+                {
+                  icon: Instagram,
+                  link: '#',
+                },
 
-                  <Icon size={18} />
-                </a>
-              ))}
+                {
+                  icon: Facebook,
+                  link: '#',
+                },
+
+                {
+                  icon: Linkedin,
+                  link: '#',
+                },
+
+                {
+                  icon: MessageCircle,
+                  link:
+                    'https://wa.me/919074076735',
+                },
+              ].map((social, index) => {
+                const Icon =
+                  social.icon
+
+                return (
+                  <a
+                    key={index}
+                    href={social.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-10 h-10 rounded-xl border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all duration-300 shadow-sm"
+                  >
+
+                    <Icon size={18} />
+                  </a>
+                )
+              })}
             </div>
           </div>
 
@@ -188,14 +213,14 @@ export default function Footer() {
                       href="tel:+919074076735"
                       className="block text-sm text-gray-600 hover:text-blue-600 transition-colors"
                     >
-                      9074076735
+                      +91 9074076735
                     </a>
 
                     <a
                       href="tel:+919893906887"
                       className="block text-sm text-gray-600 hover:text-blue-600 transition-colors"
                     >
-                      9893906887
+                      +91 9893906887
                     </a>
                   </div>
                 </div>
@@ -221,10 +246,10 @@ export default function Footer() {
                     </p>
 
                     <a
-                      href="mailto:hello@kraph.in"
-                      className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                      href="mailto:kraphofficial01@gmail.com"
+                      className="text-sm text-gray-600 hover:text-blue-600 transition-colors break-all"
                     >
-                      hello@kraph.in
+                      kraphofficial01@gmail.com
                     </a>
                   </div>
                 </div>

@@ -491,8 +491,8 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Floating Elements */}
-                <div className="absolute -top-5 -right-5 bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-lg">
+                {/* Desktop Floating Elements */}
+                <div className="hidden md:block absolute -top-5 -right-5 bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-lg">
 
                   <p className="text-sm text-gray-500 mb-1">
                     Focused On
@@ -503,7 +503,7 @@ export default function About() {
                   </p>
                 </div>
 
-                <div className="absolute -bottom-5 -left-5 bg-blue-600 rounded-2xl px-6 py-5 shadow-xl">
+                <div className="hidden md:block absolute -bottom-5 -left-5 bg-blue-600 rounded-2xl px-6 py-5 shadow-xl">
 
                   <p className="text-white text-sm mb-1">
                     Helping Brands
@@ -512,6 +512,32 @@ export default function About() {
                   <p className="text-white font-semibold text-lg">
                     Grow Online
                   </p>
+                </div>
+
+                {/* Mobile Info Cards */}
+                <div className="flex md:hidden flex-col gap-4 mt-5">
+
+                  <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm">
+
+                    <p className="text-sm text-gray-500 mb-1">
+                      Focused On
+                    </p>
+
+                    <p className="font-semibold text-gray-900">
+                      Real Business Growth
+                    </p>
+                  </div>
+
+                  <div className="bg-blue-600 rounded-2xl px-5 py-4 shadow-sm">
+
+                    <p className="text-white text-sm mb-1">
+                      Helping Brands
+                    </p>
+
+                    <p className="text-white font-semibold text-lg">
+                      Grow Online
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

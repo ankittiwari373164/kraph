@@ -6,6 +6,10 @@ import {
   Send,
   ArrowRight,
   CheckCircle2,
+  Instagram,
+  Facebook,
+  Linkedin,
+  MessageCircle,
 } from 'lucide-react'
 
 export default function Contact() {
@@ -129,10 +133,10 @@ export default function Contact() {
                     </p>
 
                     <a
-                      href="mailto:hello@kraph.in"
-                      className="text-gray-900 font-medium hover:text-blue-600 transition-colors"
+                      href="mailto:kraphofficial01@gmail.com"
+                      className="text-gray-900 font-medium hover:text-blue-600 transition-colors break-all"
                     >
-                      hello@kraph.in
+                      kraphofficial01@gmail.com
                     </a>
                   </div>
                 </div>
@@ -158,14 +162,14 @@ export default function Contact() {
                       href="tel:+919074076735"
                       className="block text-gray-900 font-medium hover:text-green-600 transition-colors"
                     >
-                      9074076735
+                      +91 90740 76735
                     </a>
 
                     <a
                       href="tel:+919893906887"
                       className="block text-gray-900 font-medium hover:text-green-600 transition-colors"
                     >
-                      9893906887
+                      +91 98939 06887
                     </a>
                   </div>
                 </div>
@@ -206,20 +210,44 @@ export default function Contact() {
                 <div className="flex gap-3">
 
                   {[
-                    'Instagram',
-                    'Facebook',
-                    'LinkedIn',
-                    'Twitter',
-                  ].map((social) => (
+                    {
+                      icon: (
+                        <Instagram size={18} />
+                      ),
+                      link: '#',
+                    },
+
+                    {
+                      icon: (
+                        <Facebook size={18} />
+                      ),
+                      link: '#',
+                    },
+
+                    {
+                      icon: (
+                        <Linkedin size={18} />
+                      ),
+                      link: '#',
+                    },
+
+                    {
+                      icon: (
+                        <MessageCircle size={18} />
+                      ),
+                      link:
+                        'https://wa.me/919074076735',
+                    },
+                  ].map((social, i) => (
                     <a
-                      key={social}
-                      href="#"
-                      className="w-11 h-11 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:border-blue-300 hover:shadow-md transition-all duration-300"
+                      key={i}
+                      href={social.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-11 h-11 rounded-xl bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-600 hover:text-blue-600 hover:border-blue-300 hover:shadow-md transition-all duration-300"
                     >
 
-                      <span className="text-sm font-medium text-gray-600">
-                        {social[0]}
-                      </span>
+                      {social.icon}
                     </a>
                   ))}
                 </div>
@@ -444,7 +472,7 @@ export default function Contact() {
           </p>
 
           <a
-            href="mailto:hello@kraph.in"
+            href="mailto:kraphofficial01@gmail.com"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 shadow-lg"
           >
 
